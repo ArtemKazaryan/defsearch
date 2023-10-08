@@ -1,0 +1,22 @@
+{% extends 'transaction/base.html' %}
+
+{% block content %}
+
+<h1>Расчёт средней цены, общего количества, общего расхода и скорости расхода на указанный товар/услугу:</h1>
+<form method="POST" action="{% url 'specialcalculation1' %}">
+  {% csrf_token %}
+  <label for="calculation1input">Наименование товара/услуги:</label>
+  <input type="text" name="calculation1input">
+  <button type="submit">Получить</button>
+</form>
+<h1></h1>
+{{ multidash }}
+{{ error }}
+{% if input_name_value %}
+<p><b>{{ input_name_value }}</b> ( ЗАТРАТЫ: <b>{{ sumpricequantity }}</b> руб.,  КОЛ-ВО:
+  <b>{{ sumquantity }}</b> е.и.,  СР.ЦЕНА: <b>{{ averageprice }}</b> руб. за е.и.,
+  СКОРОСТЬ РАСХОДА: <b>{{ speedexp }}</b> руб. в день,  ПОТРЕБЛЕНИЕ: <b>{{ consumptionrate }}</b> е.и. в день )</p>
+{% endif %}
+
+{{ multidash }}
+{% endblock %}

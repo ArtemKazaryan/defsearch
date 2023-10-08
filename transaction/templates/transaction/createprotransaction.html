@@ -1,0 +1,15 @@
+{% extends 'transaction/base.html' %}
+
+{% block content %}
+
+<h1>Добавление дохода:</h1>
+
+<form method="post" class="bg">
+    {%  csrf_token %}
+    {{ form.as_p }}
+    <div class="center">
+        <button class="btn">Добавить</button>
+    </div>
+</form>
+
+{% endblock %}

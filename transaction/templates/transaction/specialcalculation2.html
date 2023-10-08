@@ -1,0 +1,13 @@
+{% extends 'transaction/base.html' %}
+
+{% block content %}
+<h1>Расчёт средней цены, общего количества, общего расхода и скорости расхода на все товары/услуги:</h1>
+<h1></h1>
+{{ multidash }}
+{% for item in queryset %}
+    <p><b>{{ item.name }}</b> ({{ item.categories }}): расход: <b>{{ item.totalexp }}</b> руб., кол-во: <b>{{ item.totalquant | floatformat:2 }}</b> {{ item.meter }},
+        ср.цена: <b>{{ item.averpr | floatformat:2 }}</b> руб.за {{ item.meter }}, скорость расхода: <b>{{ item.speedexp | floatformat:2 }}</b> руб. в день,
+        потребление: <b>{{ item.consumptionrate | floatformat:2 }}</b> {{ item.meter }} в день </p>
+{% endfor %}
+{% endblock %}
+

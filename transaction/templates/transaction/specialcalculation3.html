@@ -1,0 +1,11 @@
+{% extends 'transaction/base.html' %}
+
+{% block content %}
+<h1>Расчёт общего расхода, скорости расхода и доли от общих расходов по категориям товаров/услуг:</h1>
+
+{{ multidash }}
+{% for item in queryset %}
+    <p><b>{{ item.categories }}</b>: общий расход: <b>{{ item.totalexp }}</b> руб.,
+        скорость расхода: <b>{{ item.speedexp | floatformat:2 }}</b> руб. в день, доля от общего расхода: <b>{{ item.percentexp }}</b>%</p>
+{% endfor %}
+{% endblock %}

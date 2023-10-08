@@ -1,0 +1,18 @@
+{% extends 'transaction/base.html' %}
+
+{% block content %}
+
+<h1>{{ exptransaction.name }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn">Сохранить</button>
+</form>
+
+<form action="{% url 'deleteexp' exptransaction.id %}" method="post">
+    {% csrf_token %}
+    <button class="btn remove">Удалить</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="menu">
+        <div class="wrap">
+            {% if user.is_authenticated %}
+            <ul>
+                <li class="logo" ><a href="">Пользователь: {{ user.username }}</a></li>
+                <li><a href="{% url 'createpro' %}">Добавить доход</a></li>
+                <li><a href="{% url 'createexp' %}">Добавить расход</a></li>
+                <li><a href="{% url 'recorded' %}">Все проводки</a></li>
+                <li><a href="{% url 'special_cost_calculations' %}">Спецрасчёты по затратам</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn bottom">Выйти</button>
+                    </form>
+                </li>
+            </ul>
+            {% else %}
+            <ul>
+                <li><a href="{% url 'signup' %}">Зарегистрироваться</a></li>
+                <li><a href="{% url 'login' %}">Войти</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    <h2>{{ error }}</h2>
+    <div class="content">
+        <div class="wrap">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

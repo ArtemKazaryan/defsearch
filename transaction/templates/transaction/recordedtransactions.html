@@ -1,0 +1,56 @@
+{% extends 'transaction/base.html' %}
+
+{% block content %}
+
+<h3>Сегодня: {{ today }}  </h3>
+
+<p>Дата первых учётных данных: {{ oldest_of_oldest_dates }}</p>
+<p>Общий срок учёта (количество дней): {{ max_delta_days }}</p>
+<h2 style="color: black">Текущий темп расходов при отсутствии дохода исчерпает запас за {{ days_left }} дн.</h2>
+{{ multidash }}
+<h1 style="color: green">Доходы:</h1>
+<ul style="color: green">
+    <p>(общее число записей: {{ countpro }})</p>
+    {% for protransaction in protransactions %}
+    <li>
+        <a style="color: green" href="{% url 'viewprotransaction' protransaction.id %}">
+            {{ protransaction.date }} - {{ protransaction.name }}: {{ protransaction.description }}
+            ({{ protransaction.incometype.first }}) :
+            <b style="color: green">
+                {{ protransaction.amount }} руб.
+            </b>
+        </a>
+
+    </li>
+    {% endfor %}
+</ul>
+
+<h2 style="color: green">Общий доход: {{ sumpro }} руб.</h2>
+<h3 style="color: green">Среднесуточная скорость общего дохода: {{ total_revenue_rate }} руб. в день</h3>
+
+{{ multidash }}
+
+<h1 style="color: red">Расходы:</h1>
+<ul style="color: red">
+    <p>(общее число записей: {{ countexp }})</p>
+    {% for exptransaction in exptransactions %}
+    <li>
+        <a style="color: red" href="{% url 'viewexptransaction' exptransaction.id %}">
+            {{ exptransaction.date }} - {{ exptransaction.name }} {{ exptransaction.description }}
+            ({{ exptransaction.category.first }}): {{ exptransaction.quantity }} {{ exptransaction.meter.first }} за
+            <b>
+                 {{ exptransaction.total_cost }} руб.
+            </b>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<h2 style="color: red">Общий расход: {{ sumexp }} руб.</h2>
+<h3 style="color: red">Среднесуточная скорость общего расхода: {{ total_expense_rate }} руб. в день</h3>
+{{ multidash }}
+{{ multidash }}
+<h2 style="color: orange">Текущая общая прибыль (баланс, запас): {{ total_balance }} руб.</h2>
+<h3 style="color: orange">Среднесуточная скорость текущей общей прибыли: {{ margin_total_rate }} руб. в день</h3>
+<p>{{ multidash }}</p>
+{% endblock %}
